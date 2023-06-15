@@ -13,12 +13,8 @@ const redisClient = redis.createClient({
     port: REDIS_PORT,
     host: REDIS_HOST,
     password: REDIS_PASSWORD
-        //   { no_ready_check: true }
 });
 
-// redisClient.auth("CSAOlSLpfR53XKWOXjwcrqUtgReTxlwC", function (err) {
-//   if (err) throw err;
-// });
 
 redisClient.on("connect", async function() {
     console.log("Connected to Redis");
@@ -67,7 +63,7 @@ const shortUrl = async(req, res) => {
 
             return res.status(200).send({ status: true, data: urlData });
         }
-        // console.log(`urlData : ${urlData}`)
+      
 
         // creating new shortUrl
         const urlCode = shortid.generate();
@@ -84,7 +80,7 @@ const shortUrl = async(req, res) => {
                 shortUrl: savedUrl.shortUrl,
                 urlCode: savedUrl.urlCode
             }
-            // console.log(`newdata : ${urlResponse}`)
+           
 
         //setting urldata in caching
         await SET_ASYNC(`${longUrl}`, JSON.stringify(urlResponse),
